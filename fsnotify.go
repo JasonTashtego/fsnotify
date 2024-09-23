@@ -25,6 +25,7 @@
 package fsnotify
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"os"
@@ -273,6 +274,19 @@ func NewBufferedWatcher(sz uint) (*Watcher, error) {
 	}
 	return &Watcher{b: b, Events: ev, Errors: errs}, nil
 }
+
+
+
+// NewPollingWatcher creates a new Watcher which works with any OS
+func NewPollingWatcher(ctx context.Context, opt ...PollingOption) (*Watcher, error) {
+	ev, errs := make(chan Event), make(chan error)
+	b, err := newPollingWatcher(ctx, ev, errs, opt...)
+	if err != nil {
+		return nil, err
+	}
+	return &Watcher{b: b, Events: ev, Errors: errs}, nil
+}
+
 
 // Add starts monitoring the path for changes.
 //
