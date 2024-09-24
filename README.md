@@ -1,3 +1,7 @@
+# Note: This repo incorporates the polling-filewatcher for portabiliy to older/alternative file systems.
+
+
+
 fsnotify is a Go library to provide cross-platform filesystem notifications on
 Windows, Linux, macOS, BSD, and illumos.
 
